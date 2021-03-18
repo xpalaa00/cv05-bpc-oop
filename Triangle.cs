@@ -15,7 +15,9 @@ namespace cv05_bpc_oop
             { return a; }
             set
             {
-                if (value <= 0.0)
+                if (value >= b + c || b >= value + c || c >= value + b)
+                    throw new ArgumentException("Unable to construct the triangle.");
+                else if (value <= 0.0)
                     throw new ArgumentException("The argument cannot be negative or equal to zero.");
                 a = value;
             }
@@ -28,7 +30,9 @@ namespace cv05_bpc_oop
             { return b; }
             set
             {
-                if (value <= 0.0)
+                if (a >= value + c || value >= a + c || c >= a + value)
+                    throw new ArgumentException("Unable to construct the triangle.");
+                else if (value <= 0.0)
                     throw new ArgumentException("The argument cannot be negative or equal to zero.");
                 b = value;
             }
@@ -41,6 +45,8 @@ namespace cv05_bpc_oop
             { return c; }
             set
             {
+                if (a >= b + value || b >= a + value || value >= a + b)
+                    throw new ArgumentException("Unable to construct the triangle.");
                 if (value <= 0.0)
                     throw new ArgumentException("The argument cannot be negative or equal to zero.");
                 c = value;
@@ -61,6 +67,8 @@ namespace cv05_bpc_oop
 
         public Triangle(double a, double b, double c, double posX = 0.0, double posY = 0.0, double rot = 0.0)
         {
+            if (a >= b + c || b >= a + c || c >= a + b)
+                throw new ArgumentException("Unable to construct the triangle.");
             A = a;
             B = b;
             C = c;
