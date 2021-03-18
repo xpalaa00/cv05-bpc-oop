@@ -61,6 +61,8 @@ namespace cv05_bpc_oop
 
         public Triangle(double a, double b, double c, double posX = 0.0, double posY = 0.0, double rot = 0.0)
         {
+            if (a >= b + c || b >= a + c || c >= a + b)
+                throw new ArgumentException("Unable to construct the triangle.");
             A = a;
             B = b;
             C = c;
